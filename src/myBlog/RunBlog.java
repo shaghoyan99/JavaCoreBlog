@@ -29,22 +29,29 @@ public class RunBlog implements Commands {
                     isRun = false;
                     break;
                 case ADD_POST:
-
+                    addPost();
                     break;
                 case SEARCH_POST:
-
+                    searchPost();
                     break;
                 case POSTS_BY_CATEGORY:
-
+                    postByCategory ();
                     break;
                 case ALL_POSTS:
-
+                    postStorageImpl.printAllPosts();
                     break;
                 default:
                     System.out.println("Wrong command!");
             }
         }
+    }
 
+    private static void printCommands() {
+        System.out.println("Please input " + EXIT + " for EXIT");
+        System.out.println("Please input " + ADD_POST + " for ADD_POST");
+        System.out.println("Please input " + SEARCH_POST + " for SEARCH_POST");
+        System.out.println("Please input " + POSTS_BY_CATEGORY + " for PRINT_POSTS_BY_CATEGORY");
+        System.out.println("Please input " + ALL_POSTS + " for PRINT_ALL_POSTS");
     }
 
     private static void addPost() {
@@ -68,13 +75,17 @@ public class RunBlog implements Commands {
         }
     }
 
+    private static void searchPost () {
+        System.out.println("Write the word you want to search for");
+        String search = scanner.nextLine();
+        postStorageImpl.searchPostsByKeyword(search);
 
-    private static void printCommands() {
-        System.out.println("Please input " + EXIT + " for EXIT");
-        System.out.println("Please input " + ADD_POST + " for ADD_POST");
-        System.out.println("Please input " + SEARCH_POST + " for SEARCH_POST");
-        System.out.println("Please input " + POSTS_BY_CATEGORY + " for PRINT_POSTS_BY_CATEGORY");
-        System.out.println("Please input " + ALL_POSTS + " for PRINT_ALL_POSTS");
+    }
+
+    private static void postByCategory () {
+        System.out.println("Please input Post category");
+        String category = scanner.nextLine();
+        postStorageImpl.printPostsByCategory(category);
     }
 }
 

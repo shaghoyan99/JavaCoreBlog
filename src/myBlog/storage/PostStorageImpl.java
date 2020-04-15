@@ -67,6 +67,5 @@ public class PostStorageImpl implements PostStorage {
                 System.out.println(posts[i]);
             }
         }
-
     }
 }
