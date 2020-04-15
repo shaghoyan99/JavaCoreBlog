@@ -8,7 +8,7 @@ public interface PostStorage {
 
     Post getPostByTitle(String title);
 
-    void searchPostsByKeyword(String keyword);
+    Post searchPostsByKeyword(String keyword);
 
     void printAllPosts();
 

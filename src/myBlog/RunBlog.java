@@ -55,37 +55,54 @@ public class RunBlog implements Commands {
     }
 
     private static void addPost() {
-        System.out.println("Please input Post data: title,text,category");
-        String postDataStr = scanner.nextLine();
-        String[] postData = postDataStr.split(",");
-        Post byTitle = postStorageImpl.getPostByTitle(postData[0]);
-        if (byTitle != null) {
-            System.out.println("Duplicate Title");
-            addPost();
-        } else {
-            Post post = new Post();
-            Date date = new Date();
-            post.setTitle(postData[0]);
-            post.setText(postData[1]);
-            post.setCategory(postData[2]);
-            post.setCreatedData(date);
-            postStorageImpl.add(post);
-            System.out.println("Thank you, Post was added");
+        try {
+            System.out.println("Please input Post data: title,text,category");
+            String postDataStr = scanner.nextLine();
+            String[] postData = postDataStr.split(",");
+            Post byTitle = postStorageImpl.getPostByTitle(postData[0]);
+            if (byTitle != null) {
+                System.out.println("Duplicate Title");
+                addPost();
+            } else {
+                Post post = new Post();
+                Date date = new Date();
+                post.setTitle(postData[0]);
+                post.setText(postData[1]);
+                post.setCategory(postData[2]);
+                post.setCreatedData(date);
+                postStorageImpl.add(post);
+                System.out.println("Thank you, Post was added");
 
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid Data! please try again");
+            addPost();
         }
+
+
     }
 
     private static void searchPost () {
         System.out.println("Write the word you want to search for");
         String search = scanner.nextLine();
-        postStorageImpl.searchPostsByKeyword(search);
+        if (search == null){
+            System.out.println("Wrong word!");
+            searchPost();
+        }else {
+            postStorageImpl.searchPostsByKeyword(search);
+        }
 
     }
 
     private static void postByCategory () {
         System.out.println("Please input Post category");
         String category = scanner.nextLine();
-        postStorageImpl.printPostsByCategory(category);
+        if (category == null){
+            System.out.println("Wrong category!");
+            postByCategory();
+        }else {
+            postStorageImpl.printPostsByCategory(category);
+        }
     }
 }
 
