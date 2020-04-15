@@ -1,6 +1,6 @@
 package myBlog;
 
-import javafx.geometry.Pos;
+
 import myBlog.ifS.Commands;
 
 import myBlog.model.Post;
