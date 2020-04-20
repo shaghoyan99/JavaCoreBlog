@@ -9,5 +9,7 @@ public interface UserStorage {
 
     User getUserByEmailAndPassword(String email,String password) throws ModelNotFoundException;
 
+    User getUserByEmail(String email);
+
     void printUsers();
 }

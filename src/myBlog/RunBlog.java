@@ -64,14 +64,20 @@ public class RunBlog implements Commands {
             System.out.println("Please input User data: name,surname,email,password");
             String userData = scanner.nextLine();
             String[] userDataStr =  userData.split(",");
-            User user = new User();
-            user.setName(userDataStr[0]);
-            user.setSurname(userDataStr[1]);
-            user.setEmail(userDataStr[2]);
-            user.setPassword(userDataStr[3]);
-            user.setType(Type.USER);
-            userStorageImpl.add(user);
-            System.out.println("Thank you, User was added");
+            User userByEmail = userStorageImpl.getUserByEmail(userDataStr[2]);
+            if (userByEmail != null) {
+                System.out.println("Dublicate Data!!!");
+            }else {
+                User user = new User();
+                user.setName(userDataStr[0]);
+                user.setSurname(userDataStr[1]);
+                user.setEmail(userDataStr[2]);
+                user.setPassword(userDataStr[3]);
+                user.setType(Type.USER);
+                userStorageImpl.add(user);
+                System.out.println("Thank you, User was added");
+            }
+
         }catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid Data! please try again");
             registor();

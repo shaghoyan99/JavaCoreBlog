@@ -39,7 +39,17 @@ public class UserStorageImpl implements UserStorage {
                 return users[i];
             }
         }
-       throw new ModelNotFoundException("Wrong email or password !!!");
+        throw new ModelNotFoundException("Wrong email or password !!!");
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        for (int i = 0; i < size; i++) {
+            if (users[i].getEmail().equals(email)){
+                return users[i];
+            }
+        }
+        return null;
     }
 
 
