@@ -2,7 +2,7 @@ package myBlog;
 
 
 import myBlog.exception.ModelNotFoundException;
-import myBlog.ifS.Commands;
+import myBlog.commands.Command;
 
 import myBlog.model.Post;
 import myBlog.model.Type;
@@ -13,7 +13,7 @@ import myBlog.storage.UserStorageImpl;
 import java.util.Date;
 import java.util.Scanner;
 
-public class RunBlog implements Commands {
+public class RunBlog implements Command {
 
     private static final UserStorageImpl userStorageImpl = new UserStorageImpl();
     private static final PostStorageImpl postStorageImpl = new PostStorageImpl();
@@ -27,7 +27,7 @@ public class RunBlog implements Commands {
     private static void main() {
         boolean isRun = true;
         while (isRun) {
-            Commands.printMainCommands();
+            Command.printMainCommands();
             int mainCommand;
             try {
                 mainCommand = Integer.parseInt(scanner.nextLine());
@@ -104,7 +104,7 @@ public class RunBlog implements Commands {
     private static void loginuser() {
         boolean isRun = true;
         while (isRun) {
-            Commands.printUserCommands();
+            Command.printUserCommands();
             int command;
             try {
                 command = Integer.parseInt(scanner.nextLine());

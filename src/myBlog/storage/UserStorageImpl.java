@@ -1,7 +1,7 @@
 package myBlog.storage;
 
 import myBlog.exception.ModelNotFoundException;
-import myBlog.ifS.UserStorage;
+import myBlog.commands.UserStorage;
 import myBlog.model.User;
 
 public class UserStorageImpl implements UserStorage {

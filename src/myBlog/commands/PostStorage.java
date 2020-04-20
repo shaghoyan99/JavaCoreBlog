@@ -1,4 +1,4 @@
-package myBlog.ifS;
+package myBlog.commands;
 
 import myBlog.exception.ModelNotFoundException;
 import myBlog.model.Post;

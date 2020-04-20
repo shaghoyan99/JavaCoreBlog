@@ -1,6 +1,6 @@
-package myBlog.ifS;
+package myBlog.commands;
 
-public interface Commands {
+public interface Command {
 
     int LOGIN = 1;
     int REGISTER = 2;
