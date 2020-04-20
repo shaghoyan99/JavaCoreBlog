@@ -1,7 +1,9 @@
 package myBlog.storage;
 
+import myBlog.exception.ModelNotFoundException;
 import myBlog.ifS.PostStorage;
 import myBlog.model.Post;
+import myBlog.model.User;
 
 public class PostStorageImpl implements PostStorage {
 
@@ -44,14 +46,34 @@ public class PostStorageImpl implements PostStorage {
     }
 
     @Override
-    public Post searchPostsByKeyword(String keyword) {
+    public void searchPostsByKeyword(String keyword) {
         for (int i = 0; i < size; i++) {
-            if (posts[i].getTitle().contains(keyword) || posts[i].getText().contains(keyword)) {
+            if (posts[i].getTitle().contains(keyword) | posts[i].getText().contains(keyword)) {
                 System.out.println(posts[i]);
             }
         }
-        return null;
     }
+
+    @Override
+    public void printPostsByCategory(String category) throws ModelNotFoundException {
+        for (int i = 0; i < size; i++) {
+            if (posts[i].getCategory().equals(category)) {
+                System.out.println(posts[i]);
+            } else {
+                throw new ModelNotFoundException("Wrong Category!");
+            }
+        }
+    }
+
+    @Override
+    public void printPostByUser(String email) {
+        for (int i = 0; i < size; i++) {
+            if (posts[i].getUser().getEmail().equals(email)){
+                System.out.println(posts[i]);
+            }
+        }
+    }
+
 
     @Override
     public void printAllPosts() {
@@ -59,14 +81,5 @@ public class PostStorageImpl implements PostStorage {
             System.out.println(posts[i]);
         }
 
-    }
-
-    @Override
-    public void printPostsByCategory(String category) {
-        for (int i = 0; i < size; i++) {
-            if (posts[i].getCategory().equals(category)) {
-                System.out.println(posts[i]);
-            }
-        }
     }
 }

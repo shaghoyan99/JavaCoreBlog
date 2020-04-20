@@ -1,44 +1,52 @@
 package myBlog;
 
 
+import myBlog.exception.ModelNotFoundException;
 import myBlog.ifS.Commands;
 
 import myBlog.model.Post;
+import myBlog.model.Type;
+import myBlog.model.User;
 import myBlog.storage.PostStorageImpl;
+import myBlog.storage.UserStorageImpl;
 
 import java.util.Date;
 import java.util.Scanner;
 
 public class RunBlog implements Commands {
 
-    private static PostStorageImpl postStorageImpl = new PostStorageImpl();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final UserStorageImpl userStorageImpl = new UserStorageImpl();
+    private static final PostStorageImpl postStorageImpl = new PostStorageImpl();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean isRun = true;
         while (isRun) {
-            printCommands();
-            int command;
+            Commands.printMainCommands();
+            int mainCommand;
             try {
-                command = Integer.parseInt(scanner.nextLine());
+                mainCommand = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                command = -1;
+                mainCommand = -1;
             }
-            switch (command) {
-                case EXIT:
-                    isRun = false;
+            switch (mainCommand) {
+                case LOGIN:
+                    loginUser();
                     break;
-                case ADD_POST:
-                    addPost();
+                case REGISTER:
+                    registor();
                     break;
-                case SEARCH_POST:
+                case POST_BY_CATEGORY:
                     searchPost();
                     break;
-                case POSTS_BY_CATEGORY:
-                    postByCategory ();
+                case SEARCH_POST:
+                    postByCategory();
                     break;
-                case ALL_POSTS:
+                case ALL_POST:
                     postStorageImpl.printAllPosts();
+                    break;
+                case EXIT:
+                    isRun = false;
                     break;
                 default:
                     System.out.println("Wrong command!");
@@ -46,13 +54,39 @@ public class RunBlog implements Commands {
         }
     }
 
-    private static void printCommands() {
-        System.out.println("Please input " + EXIT + " for EXIT");
-        System.out.println("Please input " + ADD_POST + " for ADD_POST");
-        System.out.println("Please input " + SEARCH_POST + " for SEARCH_POST");
-        System.out.println("Please input " + POSTS_BY_CATEGORY + " for PRINT_POSTS_BY_CATEGORY");
-        System.out.println("Please input " + ALL_POSTS + " for PRINT_ALL_POSTS");
+    private static void registor() {
+        try{
+            System.out.println("Please input User data: name,surname,email,password");
+            String userData = scanner.nextLine();
+            String[] userDataStr =  userData.split(",");
+            User user = new User();
+            user.setName(userDataStr[0]);
+            user.setSurname(userDataStr[1]);
+            user.setEmail(userDataStr[2]);
+            user.setPassword(userDataStr[3]);
+            user.setType(Type.USER);
+            userStorageImpl.add(user);
+            System.out.println("Thank you, User was added");
+        }catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid Data! please try again");
+            registor();
+        }
     }
+
+    private static void loginUser() {
+        System.out.println("Please input email and password(email.password)");
+        String userData = scanner.nextLine();
+        String[] userDataStr = userData.split(",");
+        try {
+            User user = userStorageImpl.getUserByEmailAndPassword(userDataStr[0],userDataStr[1]);
+        }catch (ModelNotFoundException e){
+            e.getMessage();
+        }
+
+
+    }
+
+
 
     private static void addPost() {
         try {
@@ -82,27 +116,24 @@ public class RunBlog implements Commands {
 
     }
 
-    private static void searchPost () {
+    private static void searchPost() {
         System.out.println("Write the word you want to search for");
         String search = scanner.nextLine();
-        if (search == null){
-            System.out.println("Wrong word!");
-            searchPost();
-        }else {
-            postStorageImpl.searchPostsByKeyword(search);
-        }
+        postStorageImpl.searchPostsByKeyword(search);
+
 
     }
 
-    private static void postByCategory () {
+    private static void postByCategory() {
         System.out.println("Please input Post category");
-        String category = scanner.nextLine();
-        if (category == null){
-            System.out.println("Wrong category!");
-            postByCategory();
-        }else {
+        try {
+            String category = scanner.nextLine();
             postStorageImpl.printPostsByCategory(category);
+        }catch (ModelNotFoundException e){
+            System.out.println(e.getMessage());
+            postByCategory();
         }
     }
+
 }
 

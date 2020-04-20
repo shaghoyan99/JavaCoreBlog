@@ -1,17 +1,21 @@
 package myBlog.ifS;
 
+import myBlog.exception.ModelNotFoundException;
 import myBlog.model.Post;
+import myBlog.model.User;
 
 public interface PostStorage {
 
     void add(Post post);
 
-    Post getPostByTitle(String title);
+    Post getPostByTitle(String title) throws ModelNotFoundException;
 
-    Post searchPostsByKeyword(String keyword);
+    void searchPostsByKeyword(String keyword);
 
     void printAllPosts();
 
-    void printPostsByCategory(String category);
+    void printPostsByCategory(String category) throws  ModelNotFoundException;
+
+    void printPostByUser(String email);
 
 }
