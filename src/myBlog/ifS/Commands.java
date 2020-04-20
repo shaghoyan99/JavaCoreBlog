@@ -27,7 +27,7 @@ public interface Commands {
         System.out.println("Please input " + LOGOUT + " for LOGOUT");
         System.out.println("Please input " + ADD_POST + " for ADD_POST");
         System.out.println("Please input " + SEARCH_ALL_POST + " for SEARCH_POST");
-        System.out.println("Please input " + PRINT_ALL_POST + " for SEARCH_POST");
+        System.out.println("Please input " + PRINT_ALL_POST + " for PRINT_BY_POST");
 
     }
 }

@@ -46,7 +46,7 @@ public class PostStorageImpl implements PostStorage {
     }
 
     @Override
-    public void searchPostsByKeyword(String keyword) {
+    public void searchPostsByKeyword(String keyword)  {
         for (int i = 0; i < size; i++) {
             if (posts[i].getTitle().contains(keyword) | posts[i].getText().contains(keyword)) {
                 System.out.println(posts[i]);
