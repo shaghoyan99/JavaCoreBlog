@@ -4,18 +4,19 @@ import myBlog.exception.ModelNotFoundException;
 import myBlog.model.Post;
 import myBlog.model.User;
 
-public interface PostStorage {
-
-    void add(Post post);
-
+public interface DataStorage {
     Post getPostByTitle(String title) throws ModelNotFoundException;
 
-    void searchPostsByKeyword(String keyword);
+    void searchPostsByKeyword(String keyword) throws ModelNotFoundException;
 
     void printAllPosts();
 
     void printPostsByCategory(String category) throws  ModelNotFoundException;
 
-    void printPostByUser(String email);
+    User getUserByEmailAndPassword(String email, String password) throws ModelNotFoundException;
+
+    User getUserByEmail(String email);
+
+    void addMap(String email,User user);
 
 }
